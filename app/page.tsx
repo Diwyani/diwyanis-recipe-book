@@ -3,7 +3,7 @@ import { RecipeGrid } from "@/components/RecipeGrid";
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-x-hidden bg-recipe-yellow px-8 py-12 text-recipe-navy md:px-16 md:py-16 lg:px-24 lg:py-20">
+    <main className="min-h-screen overflow-x-clip bg-recipe-yellow px-8 py-12 text-recipe-navy md:px-16 md:py-16 lg:px-24 lg:py-20">
       <div className="mx-auto max-w-6xl">
         <header className="grid gap-12 md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-16 lg:gap-24">
           <div className="max-w-xl space-y-6">
@@ -19,7 +19,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex justify-center md:justify-end md:pt-2">
+          <div className="flex justify-center overflow-visible md:justify-end md:pt-2">
             <PolaroidStack />
           </div>
         </header>
