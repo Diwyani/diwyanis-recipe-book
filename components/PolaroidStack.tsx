@@ -16,7 +16,7 @@ type PantryItem = {
 function PolaroidPhotos({ hovered }: { hovered: boolean }) {
   return (
     <div
-      className={`w-[11rem] rotate-[7deg] transition-shadow duration-300 ease-out sm:w-[11.5rem] ${polaroidFrame} ${
+      className={`w-[11rem] rotate-[7deg] transition-shadow duration-[420ms] ease-out sm:w-[11.5rem] ${polaroidFrame} ${
         hovered
           ? "shadow-[0_16px_36px_rgba(40,26,124,0.34)]"
           : "shadow-[0_12px_28px_rgba(40,26,124,0.28)]"
@@ -69,7 +69,7 @@ function PolaroidPantry({
 }) {
   return (
     <div
-      className={`-rotate-[8deg] transition-shadow duration-500 ease-out w-[11rem] sm:w-[11.5rem] ${polaroidFrame} ${
+      className={`-rotate-[8deg] transition-shadow duration-[420ms] ease-out w-[11rem] sm:w-[11.5rem] ${polaroidFrame} ${
         hovered
           ? "shadow-[0_10px_24px_rgba(40,26,124,0.24)]"
           : "shadow-[0_6px_18px_rgba(40,26,124,0.18)]"
@@ -144,10 +144,8 @@ export function PolaroidStack() {
 
   const handleEnter = () => {
     setHovered(true);
-    raiseTimer.current = setTimeout(() => {
-      setPantryRaised(true);
-      zTimer.current = setTimeout(() => setPantryOnTop(true), 450);
-    }, 300);
+    setPantryRaised(true);
+    zTimer.current = setTimeout(() => setPantryOnTop(true), 200);
   };
 
   const handleLeave = () => {
@@ -212,9 +210,9 @@ export function PolaroidStack() {
   </p>
 </div>
       <div
-        className={`absolute right-[6.5rem] top-[-1rem] duration-500 ease-out will-change-transform transition-transform [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)] ${
+        className={`absolute right-[6.5rem] top-[-1rem] duration-[420ms] will-change-transform transition-transform [transition-timing-function:cubic-bezier(0.25,1,0.5,1)] ${
   pantryOnTop ? "z-30" : "z-10"
-} ${pantryRaised ? "translate-y-5" : "translate-y-6"}`}
+} ${pantryRaised ? "-translate-y-3" : "translate-y-6"}`}
       >
         <PolaroidPantry
           hovered={hovered}
