@@ -17,59 +17,6 @@ type Recipe = {
   instructions: string | null;
 };
 
-// Each recipe's visual personality — size, shape, position offset, rotation
-// Adjust these values to move cards around without touching layout logic
-const shapeMap: Record<string, {
-  shapeClass: string;
-  titleClass: string;
-  wrapperClass: string;
-}> = {
-  "rice-salad": {
-    // Large, organic blob — bottom left feel
-    shapeClass: "h-52 w-44 rounded-[55%_45%_48%_52%_/_42%_38%_62%_58%]",
-    titleClass: "mt-3 text-left max-w-[10rem]",
-    wrapperClass: "mt-8 ml-0 rotate-[-2deg]",
-  },
-  "chia-jam": {
-    // Circle — mid right
-    shapeClass: "h-44 w-44 rounded-full",
-    titleClass: "mt-3 text-left max-w-[10rem]",
-    wrapperClass: "mt-0 ml-auto rotate-[2deg]",
-  },
-  "apple-chutney": {
-    // Tall oval
-    shapeClass: "h-52 w-36 rounded-[50%_50%_45%_55%_/_55%_45%_55%_45%]",
-    titleClass: "mt-3 text-left max-w-[9rem]",
-    wrapperClass: "mt-6 ml-8 rotate-[-1deg]",
-  },
-};
-
-const fallbackShape = {
-  shapeClass: "h-44 w-40 rounded-[2rem]",
-  titleClass: "mt-3 text-left max-w-[10rem]",
-  wrapperClass: "mt-4 rotate-[-1deg]",
-};
-
-// Decorative elements scattered around the grid
-function StarDecor({ className }: { className: string }) {
-  return (
-    <span
-      className={`absolute select-none text-2xl ${className}`}
-      style={{ color: "#E03A2F" }}
-    >
-      ★
-    </span>
-  );
-}
-
-function CircleDecor({ className }: { className: string }) {
-  return (
-    <div
-      className={`absolute rounded-full bg-recipe-navy ${className}`}
-    />
-  );
-}
-
 // The WHY? editorial block — sits between cards like in Figma
 function WhyBlock() {
   return (
@@ -90,57 +37,46 @@ function WhyBlock() {
 
 function RecipeCard({
   recipe,
+  index,
   onClick,
 }: {
   recipe: Recipe;
+  index: number;
   onClick: () => void;
 }) {
-  const shape = shapeMap[recipe.slug] ?? fallbackShape;
-
   return (
-    <article className={`relative w-fit ${shape.wrapperClass}`}>
+    <article className="relative w-fit group/card">
       <button
         type="button"
         onClick={onClick}
         className="group block cursor-pointer text-recipe-navy"
         aria-label={`Open ${recipe.title}`}
       >
-        {/* Shape — photo or grey placeholder */}
-        <div
-          className={`overflow-hidden transition-transform duration-300 ease-out group-hover:-translate-y-1.5 group-hover:rotate-1 ${shape.shapeClass} ${
-            recipe.image_url ? "" : "bg-neutral-300"
-          }`}
-        >
-          {recipe.image_url && (
+        {/* Rounded square image */}
+        <div className="transition-transform duration-300 ease-out group-hover/card:rotate-[2deg] group-hover/card:scale-95">
+          {recipe.image_url ? (
             <img
               src={recipe.image_url}
               alt={recipe.title}
-              className="w-full h-full object-cover"
+              className="w-48 h-48 object-cover rounded-[4rem]"
+              style={{ display: "block" }}
             />
+          ) : (
+            <div className="w-48 h-48 bg-neutral-300 rounded-[4rem]" />
           )}
         </div>
 
-        {/* Title + small arrow hint */}
-        <div className={`flex items-center gap-1.5 ${shape.titleClass}`}>
-          <p className="font-barrio text-base uppercase leading-snug">
+        {/* Title + circled arrow */}
+        <div className="mt-3 max-w-[12rem] flex items-end justify-between gap-4">
+          <p className="font-barrio text-base uppercase leading-snug text-recipe-navy">
+            <span style={{ color: "#E03A2F" }}>★ </span>
             {recipe.title}
           </p>
-          {/* Small arrow — hints the card is clickable */}
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-            className="shrink-0 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200"
-          >
-            <path
-              d="M2 7h10M8 3l4 4-4 4"
-              stroke="#281A7C"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <img
+  src="/Arrow.svg"
+  alt="open recipe"
+  className="shrink-0 w-8 h-8 group-hover:scale-110 transition-transform duration-200"
+/>
         </div>
       </button>
     </article>
@@ -216,21 +152,15 @@ export function RecipeGrid() {
       {!loading && recipes.length > 0 && (
         <div className="relative">
 
-          {/* Decorative elements — adjust positions to taste */}
-          <StarDecor className="top-4 right-8 text-xl" />
-          <StarDecor className="bottom-12 left-2 text-lg" />
-          <CircleDecor className="top-0 right-24 w-3 h-3" />
-          <CircleDecor className="bottom-24 right-4 w-2 h-2" />
-
-          <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:gap-x-14 md:gap-y-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 md:gap-x-12 md:gap-y-12">
             {recipes.map((recipe, i) => (
               <RecipeCard
                 key={recipe.id}
                 recipe={recipe}
+                index={i}
                 onClick={() => setSelectedRecipe(recipe)}
               />
             ))}
-            {/* WHY block occupies a cell in the grid */}
             <WhyBlock />
           </div>
         </div>

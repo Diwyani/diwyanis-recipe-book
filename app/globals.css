@@ -48,6 +48,13 @@ body {
   line-height: 1.6rem;
 }
 
+/* SVG clip-path blob shapes for recipe cards */
+.clip-blob-1 { clip-path: ellipse(48% 43% at 50% 50%); }
+.clip-blob-2 { clip-path: ellipse(43% 50% at 50% 50%); }
+.clip-blob-3 { clip-path: ellipse(50% 48% at 52% 48%); }
+.clip-blob-4 { clip-path: ellipse(46% 44% at 48% 52%); }
+.clip-blob-5 { clip-path: ellipse(52% 46% at 50% 50%); }
+
 /* CSS grain texture — no image needed */
 .paper-grain::after {
   content: "";
