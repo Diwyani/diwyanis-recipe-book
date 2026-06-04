@@ -45,7 +45,7 @@ function RecipeCard({
   onClick: () => void;
 }) {
   return (
-    <article className="relative w-fit group/card">
+   <article className="relative w-52 group/card">
       <button
         type="button"
         onClick={onClick}
@@ -58,7 +58,7 @@ function RecipeCard({
             <img
               src={recipe.image_url}
               alt={recipe.title}
-              className="w-48 h-48 object-cover rounded-[4rem]"
+           className="w-52 h-52 object-cover rounded-[4rem] shadow-[0_12px_32px_rgba(0,0,0,0.15)]"
               style={{ display: "block" }}
             />
           ) : (
@@ -67,7 +67,7 @@ function RecipeCard({
         </div>
 
         {/* Title + circled arrow */}
-        <div className="mt-3 max-w-[12rem] flex items-end justify-between gap-4">
+        <div className="mt-3 w-52 flex items-start justify-between gap-2">
           <p className="font-barrio text-base uppercase leading-snug text-recipe-navy">
             <span style={{ color: "#E03A2F" }}>★ </span>
             {recipe.title}
@@ -152,7 +152,7 @@ export function RecipeGrid() {
       {!loading && recipes.length > 0 && (
         <div className="relative">
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 md:gap-x-12 md:gap-y-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6 md:gap-x-12 items-start">
             {recipes.map((recipe, i) => (
               <RecipeCard
                 key={recipe.id}
