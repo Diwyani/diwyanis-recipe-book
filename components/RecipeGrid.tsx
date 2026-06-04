@@ -222,41 +222,16 @@ export function RecipeGrid() {
           <CircleDecor className="top-0 right-24 w-3 h-3" />
           <CircleDecor className="bottom-24 right-4 w-2 h-2" />
 
-          {/* 
-            Two column layout — left and right columns, 
-            cards scattered with margin/rotation via wrapperClass 
-          */}
-          <div className="flex gap-6 md:gap-10">
-
-            {/* Left column */}
-            <div className="flex flex-col flex-1">
-              {recipes
-                .filter((_, i) => i % 2 === 0)
-                .map((recipe) => (
-                  <RecipeCard
-                    key={recipe.id}
-                    recipe={recipe}
-                    onClick={() => setSelectedRecipe(recipe)}
-                  />
-                ))}
-              {/* WHY block sits in left column */}
-              <WhyBlock />
-            </div>
-
-            {/* Right column */}
-            <div className="flex flex-col flex-1 pt-16">
-              {/* pt-16 offsets right column down — creates staggered feel */}
-              {recipes
-                .filter((_, i) => i % 2 !== 0)
-                .map((recipe) => (
-                  <RecipeCard
-                    key={recipe.id}
-                    recipe={recipe}
-                    onClick={() => setSelectedRecipe(recipe)}
-                  />
-                ))}
-            </div>
-
+          <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:gap-x-14 md:gap-y-14">
+            {recipes.map((recipe, i) => (
+              <RecipeCard
+                key={recipe.id}
+                recipe={recipe}
+                onClick={() => setSelectedRecipe(recipe)}
+              />
+            ))}
+            {/* WHY block occupies a cell in the grid */}
+            <WhyBlock />
           </div>
         </div>
       )}

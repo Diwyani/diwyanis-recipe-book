@@ -12,10 +12,10 @@ export default function Home() {
               Recipe Book
             </h1>
             <p className="max-w-md text-base leading-8 md:text-lg md:leading-9">
-              What I&apos;ve found from all the cooking food is beyond calories
-              and protein. Food is an exploration, a way back to memories, warm
-              meals, and little moments made for ourselves and the people we
-              love.
+             I've been cooking my own meals for a year now. What I've found 
+            from all of it — food is beyond calories and protein. It's 
+exploration, a way back to memories, warm meals made for 
+ourselves and the people we love. This is where I keep mine.
             </p>
           </div>
 

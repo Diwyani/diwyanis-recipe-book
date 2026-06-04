@@ -75,9 +75,7 @@ function PolaroidPantry({
           : "shadow-[0_6px_18px_rgba(40,26,124,0.18)]"
       }`}
     >
-    <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-10 text-5xl select-none" style={{color: '#E03A2F'}}>
-  ★
-</div>
+    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10 select-none w-6 h-6 rounded-full" style={{backgroundColor: '#E03A2F'}} />
       <div className={`flex flex-col ${slotGap}`}>
 
         <section className="flex aspect-[4/5] w-full flex-col bg-recipe-navy px-3 py-2.5 text-white">
@@ -175,40 +173,26 @@ export function PolaroidStack() {
       onMouseLeave={handleLeave}
     >
       {/* Arrow + label — positioned relative to the stack wrapper */}
-<div className="absolute bottom-[4rem] left-[-5rem] z-40 flex flex-col items-center gap-1">
-  
-  {/* Curved arrow — hand-drawn SVG */}
-  <svg
-    width="48"
-    height="48"
-    viewBox="0 0 48 48"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="rotate-[30deg]"
-  >
-    <path
-      d="M8 40 C10 20, 28 10, 38 12"
-      stroke="#281A7C"
-      strokeWidth="2"
-      strokeLinecap="round"
-      fill="none"
-    />
-    {/* Arrowhead */}
-    <path
-      d="M34 8 L38 12 L33 15"
-      stroke="#000000"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      fill="none"
-    />
-  </svg>
+      <div className="absolute bottom-[8.5rem] left-[-8.5rem] z-40 flex flex-col items-center gap-1">
+        <p className="font-barrio text-sm uppercase text-recipe-navy -rotate-[6deg] whitespace-nowrap">
+          Joy of Hosting
+        </p>
+        <svg width="56" height="48" viewBox="0 0 56 48" fill="none" className="rotate-[10deg]">
+          <path d="M8 8 C12 26, 32 36, 48 38" stroke="#281A7C" strokeWidth="2" strokeLinecap="round" fill="none" />
+          <path d="M43 34 L48 38 L44 43" stroke="#281A7C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        </svg>
+      </div>
+      {/* ── Still Warm label + arrow (right side) ── */}
+      <div className="absolute top-[21rem] right-[-1rem] z-40 flex flex-col items-center gap-1">
+        <svg width="44" height="40" viewBox="0 0 44 40" fill="none" className="-rotate-[5deg]">
+          <path d="M38 6 C30 16, 16 24, 4 30" stroke="#281A7C" strokeWidth="2" strokeLinecap="round" fill="none" />
+          <path d="M8 24 L4 30 L10 31" stroke="#281A7C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        </svg>
+        <p className="font-barrio text-sm uppercase text-recipe-navy rotate-[4deg] whitespace-nowrap">
+          Still Warm
+        </p>
+      </div>
 
-  {/* Label */}
-  <p className="font-barrio text-sm uppercase text-recipe-navy -rotate-[6deg] whitespace-nowrap">
-    Joy of Hosting
-  </p>
-</div>
       <div
         className={`absolute right-[6.5rem] top-[-1rem] duration-[420ms] will-change-transform transition-transform [transition-timing-function:cubic-bezier(0.25,1,0.5,1)] ${
   pantryOnTop ? "z-30" : "z-10"
