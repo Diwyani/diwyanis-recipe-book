@@ -18,22 +18,23 @@ body {
 .font-syne {
   font-family: var(--font-syne), system-ui, sans-serif;
 }
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.97); }
-  to   { opacity: 1; transform: scale(1); }
+@keyframes modalIn {
+  0%   { opacity: 0; transform: scale(0.88) rotate(0.5deg) translateY(24px); }
+  60%  { opacity: 1; transform: scale(1.02) rotate(0.5deg) translateY(-4px); }
+  100% { opacity: 1; transform: scale(1) rotate(0.5deg) translateY(0); }
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.2s ease-out forwards;
-}
-/* Paper grain texture overlay */
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.97) rotate(0.5deg); }
-  to   { opacity: 1; transform: scale(1) rotate(0.5deg); }
+  animation: backdropIn 0.2s ease-out forwards;
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.25s ease-out forwards;
+.animate-modalIn {
+  animation: modalIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* Ruled lines behind instructions */
@@ -54,6 +55,24 @@ body {
 .clip-blob-3 { clip-path: ellipse(50% 48% at 52% 48%); }
 .clip-blob-4 { clip-path: ellipse(46% 44% at 48% 52%); }
 .clip-blob-5 { clip-path: ellipse(52% 46% at 50% 50%); }
+
+/* Salt grain particle fall */
+@keyframes saltFall {
+  0%   { transform: translate(0, 0) scale(1);    opacity: 1; }
+  60%  { opacity: 0.8; }
+  100% { transform: translate(var(--dx), 90px) scale(0.2); opacity: 0; }
+}
+
+.salt-particle {
+  position: fixed;
+  width: var(--sz, 4px);
+  height: var(--sz, 4px);
+  border-radius: 50%;
+  background: #281A7C;
+  pointer-events: none;
+  z-index: 9999;
+  animation: saltFall var(--dur, 0.75s) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
 
 /* CSS grain texture — no image needed */
 .paper-grain::after {
