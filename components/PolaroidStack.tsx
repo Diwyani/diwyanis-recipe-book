@@ -139,15 +139,15 @@ export function PolaroidStack() {
     }
     fetchPantry();
   }, []);
-
+const [isHovered, setIsHovered] = useState(false);
   return (
     
     <div
       className="relative h-[26rem] w-[14rem] shrink-0 overflow-visible sm:h-[27rem] sm:w-[15.5rem] hidden md:block"
       role="group"
       aria-label="Polaroid photos and pantry list"
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Arrow + label — positioned relative to the stack wrapper */}
       <div className="absolute bottom-[8.5rem] left-[-8.5rem] z-40 flex flex-col items-center gap-1">
