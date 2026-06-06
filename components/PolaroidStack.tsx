@@ -29,7 +29,7 @@ function PolaroidPhotos({ hovered }: { hovered: boolean }) {
 
       <div className={`flex flex-col ${slotGap}`}>
         <div
-          className={`aspect-[4/5] w-full overflow-hidden transition-[filter] duration-100 ease-out ${
+          className={`aspect-[4/5] w-full overflow-hidden transition-[filter] duration-300 ease-out ${
             hovered ? "grayscale-0" : "grayscale"
           }`}
         >
@@ -44,7 +44,7 @@ function PolaroidPhotos({ hovered }: { hovered: boolean }) {
         </div>
 
         <div
-          className={`aspect-[4/5] w-full overflow-hidden transition-[filter] duration-100 ease-out ${
+          className={`aspect-[4/5] w-full overflow-hidden transition-[filter] duration-300 ease-out ${
             hovered ? "grayscale-0" : "grayscale"
           }`}
         >
@@ -148,7 +148,7 @@ export function PolaroidStack() {
     raiseTimer.current = setTimeout(() => {
       setPantryRaised(true);
       zTimer.current = setTimeout(() => setPantryOnTop(true), 80);
-    }, 380);
+    }, 620);
   };
 
   const handleLeave = () => {
@@ -199,7 +199,7 @@ export function PolaroidStack() {
       </div>
 
       <div
-        className={`absolute right-[6.5rem] top-[-1rem] duration-[260ms] will-change-transform transition-transform [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)] ${
+        className={`absolute right-[6.5rem] top-[-1rem] duration-[420ms] will-change-transform transition-transform [transition-timing-function:cubic-bezier(0.25,0.1,0.25,1)] ${
           pantryOnTop ? "z-30" : "z-10"
         } ${pantryRaised ? "-translate-y-6" : "translate-y-6"}`}
       >
