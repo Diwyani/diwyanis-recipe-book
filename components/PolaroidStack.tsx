@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 
@@ -22,13 +22,12 @@ function PolaroidPhotos({ hovered }: { hovered: boolean }) {
           ? "shadow-[0_16px_36px_rgba(40,26,124,0.34)]"
           : "shadow-[0_12px_28px_rgba(40,26,124,0.28)]"
       }`}
-      
-   > <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-10 text-5xl select-none" style={{color: '#E03A2F'}}>
-  ★
-</div>
-      <div className={`flex flex-col ${slotGap}`}>
+    >
+      <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-10 text-5xl select-none" style={{ color: "#E03A2F" }}>
+        ★
+      </div>
 
-        {/* Slot 1 — plain img, no next/image needed for local files */}
+      <div className={`flex flex-col ${slotGap}`}>
         <div
           className={`aspect-[4/5] w-full overflow-hidden transition-[filter] duration-100 ease-out ${
             hovered ? "grayscale-0" : "grayscale"
@@ -37,13 +36,13 @@ function PolaroidPhotos({ hovered }: { hovered: boolean }) {
           <Image
             src="/polaroid-photo-1.webp"
             alt="memories"
-            width={184} height={230}
+            width={184}
+            height={230}
             className="w-full h-full object-cover"
             priority
           />
         </div>
 
-        {/* Slot 2 */}
         <div
           className={`aspect-[4/5] w-full overflow-hidden transition-[filter] duration-100 ease-out ${
             hovered ? "grayscale-0" : "grayscale"
@@ -52,12 +51,12 @@ function PolaroidPhotos({ hovered }: { hovered: boolean }) {
           <Image
             src="/polaroid-photo-2.webp"
             alt="Joy of hosting"
-            width={184} height={230}
+            width={184}
+            height={230}
             className="w-full h-full object-cover"
             priority
           />
         </div>
-
       </div>
     </div>
   );
@@ -80,9 +79,9 @@ function PolaroidPantry({
           : "shadow-[0_6px_18px_rgba(40,26,124,0.18)]"
       }`}
     >
-    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10 select-none w-6 h-6 rounded-full" style={{backgroundColor: '#E03A2F'}} />
-      <div className={`flex flex-col ${slotGap}`}>
+      <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10 select-none w-6 h-6 rounded-full" style={{ backgroundColor: "#E03A2F" }} />
 
+      <div className={`flex flex-col ${slotGap}`}>
         <section className="flex aspect-[4/5] w-full flex-col bg-recipe-navy px-3 py-2.5 text-white">
           <h2 className="font-barrio text-lg uppercase leading-none">Restock!</h2>
           <ul className="mt-2 space-y-0.5 text-[0.7rem] leading-snug">
@@ -116,7 +115,6 @@ function PolaroidPantry({
             )}
           </ul>
         </section>
-
       </div>
     </div>
   );
@@ -124,8 +122,13 @@ function PolaroidPantry({
 
 export function PolaroidStack() {
   const [hovered, setHovered] = useState(false);
+  const [pantryRaised, setPantryRaised] = useState(false);
+  const [pantryOnTop, setPantryOnTop] = useState(false);
   const [restockItems, setRestockItems] = useState<PantryItem[]>([]);
   const [leftoverItems, setLeftoverItems] = useState<PantryItem[]>([]);
+
+  const raiseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const zTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     async function fetchPantry() {
@@ -139,17 +142,41 @@ export function PolaroidStack() {
     }
     fetchPantry();
   }, []);
-const [isHovered, setIsHovered] = useState(false);
+
+  const handleEnter = () => {
+    setHovered(true);
+    raiseTimer.current = setTimeout(() => {
+      setPantryRaised(true);
+      zTimer.current = setTimeout(() => setPantryOnTop(true), 80);
+    }, 380);
+  };
+
+  const handleLeave = () => {
+    setHovered(false);
+    setPantryRaised(false);
+    setPantryOnTop(false);
+    if (raiseTimer.current) clearTimeout(raiseTimer.current);
+    if (zTimer.current) clearTimeout(zTimer.current);
+    raiseTimer.current = null;
+    zTimer.current = null;
+  };
+
+  useEffect(() => {
+    return () => {
+      if (raiseTimer.current) clearTimeout(raiseTimer.current);
+      if (zTimer.current) clearTimeout(zTimer.current);
+    };
+  }, []);
+
   return (
-    
     <div
       className="relative h-[26rem] w-[14rem] shrink-0 overflow-visible sm:h-[27rem] sm:w-[15.5rem] hidden md:block"
       role="group"
       aria-label="Polaroid photos and pantry list"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
     >
-      {/* Arrow + label — positioned relative to the stack wrapper */}
+      {/* Joy of Hosting label + arrow */}
       <div className="absolute bottom-[8.5rem] left-[-8.5rem] z-40 flex flex-col items-center gap-1">
         <p className="font-barrio text-sm uppercase text-recipe-navy -rotate-[6deg] whitespace-nowrap">
           Joy of Hosting
@@ -159,7 +186,8 @@ const [isHovered, setIsHovered] = useState(false);
           <path d="M43 34 L48 38 L44 43" stroke="#281A7C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
         </svg>
       </div>
-      {/* ── Still Warm label + arrow (right side) ── */}
+
+      {/* Still Warm label + arrow */}
       <div className="absolute top-[21rem] right-[-1rem] z-40 flex flex-col items-center gap-1">
         <svg width="44" height="40" viewBox="0 0 44 40" fill="none" className="-rotate-[5deg]">
           <path d="M38 6 C30 16, 16 24, 4 30" stroke="#281A7C" strokeWidth="2" strokeLinecap="round" fill="none" />
@@ -170,18 +198,10 @@ const [isHovered, setIsHovered] = useState(false);
         </p>
       </div>
 
-      {/* Pantry card — z-10, lives behind photo card (z-20) */}
       <div
-        className="absolute right-[6.5rem] top-[-1rem] z-10 will-change-transform"
-        style={{
-          transform: hovered
-            ? "translateX(-105%) rotate(-12deg)"
-            : "translateX(-85%) rotate(-8deg)",
-          opacity: hovered ? 1 : 0,
-          transition: hovered
-            ? "all 400ms cubic-bezier(0.34, 1.56, 0.64, 1) 80ms"
-            : "all 300ms cubic-bezier(0.4, 0, 1, 1) 0ms",
-        }}
+        className={`absolute right-[6.5rem] top-[-1rem] duration-[260ms] will-change-transform transition-transform [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)] ${
+          pantryOnTop ? "z-30" : "z-10"
+        } ${pantryRaised ? "-translate-y-6" : "translate-y-6"}`}
       >
         <PolaroidPantry
           hovered={hovered}
@@ -190,7 +210,6 @@ const [isHovered, setIsHovered] = useState(false);
         />
       </div>
 
-      {/* Photo card — z-20, sits on top so pantry slides out from underneath */}
       <div className="absolute left-0 top-0 z-20">
         <PolaroidPhotos hovered={hovered} />
       </div>
