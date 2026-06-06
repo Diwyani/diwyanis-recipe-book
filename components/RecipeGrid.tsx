@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import { RecipeModal } from "@/components/RecipeModal";
 import type { Recipe } from "@/lib/types";
 
@@ -56,11 +57,12 @@ function RecipeCard({
             }}
           >
             {recipe.image_url ? (
-              <img
+              <Image
                 src={recipe.image_url}
                 alt={recipe.title}
+                width={144} height={144}
                 className="w-36 h-36 object-cover rounded-[2.5rem] shadow-[0_8px_20px_rgba(0,0,0,0.12)]"
-                style={{ display: "block" }}
+                loading="lazy"
               />
             ) : (
               <div className="w-36 h-36 bg-neutral-300 rounded-[2.5rem]" />
@@ -118,11 +120,12 @@ function RecipeCard({
               style={clicking ? { transform: "none" } : undefined}
             >
               {recipe.image_url ? (
-                <img
+                <Image
                   src={recipe.image_url}
                   alt={recipe.title}
+                  width={208} height={208}
                   className="w-52 h-52 object-cover rounded-[4rem] shadow-[0_12px_32px_rgba(0,0,0,0.15)]"
-                  style={{ display: "block" }}
+                  loading="lazy"
                 />
               ) : (
                 <div className="w-48 h-48 bg-neutral-300 rounded-[4rem]" />

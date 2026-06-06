@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 
 const polaroidFrame = "bg-white px-2 pt-1 pb-[3.25rem]";
@@ -33,10 +34,12 @@ function PolaroidPhotos({ hovered }: { hovered: boolean }) {
             hovered ? "grayscale-0" : "grayscale"
           }`}
         >
-          <img
+          <Image
             src="/polaroid-photo-1.webp"
             alt="memories"
+            width={184} height={230}
             className="w-full h-full object-cover"
+            priority
           />
         </div>
 
@@ -46,10 +49,12 @@ function PolaroidPhotos({ hovered }: { hovered: boolean }) {
             hovered ? "grayscale-0" : "grayscale"
           }`}
         >
-          <img
+          <Image
             src="/polaroid-photo-2.webp"
             alt="Joy of hosting"
+            width={184} height={230}
             className="w-full h-full object-cover"
+            priority
           />
         </div>
 
