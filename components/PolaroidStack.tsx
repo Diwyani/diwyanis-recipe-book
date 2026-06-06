@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 
@@ -124,13 +124,8 @@ function PolaroidPantry({
 
 export function PolaroidStack() {
   const [hovered, setHovered] = useState(false);
-  const [pantryRaised, setPantryRaised] = useState(false);
-  const [pantryOnTop, setPantryOnTop] = useState(false);
   const [restockItems, setRestockItems] = useState<PantryItem[]>([]);
   const [leftoverItems, setLeftoverItems] = useState<PantryItem[]>([]);
-
-  const raiseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const zTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     async function fetchPantry() {
@@ -143,32 +138,6 @@ export function PolaroidStack() {
       setLeftoverItems(data.filter((i) => i.type === "leftover"));
     }
     fetchPantry();
-  }, []);
-
-  const handleEnter = () => {
-    setHovered(true);
-    // photos go colourful immediately — pantry waits 380ms so photos get a moment
-    raiseTimer.current = setTimeout(() => {
-      setPantryRaised(true);
-      zTimer.current = setTimeout(() => setPantryOnTop(true), 80);
-    }, 380);
-  };
-
-  const handleLeave = () => {
-    setHovered(false);
-    setPantryRaised(false);
-    setPantryOnTop(false);
-    if (raiseTimer.current) clearTimeout(raiseTimer.current);
-    if (zTimer.current) clearTimeout(zTimer.current);
-    raiseTimer.current = null;
-    zTimer.current = null;
-  };
-
-  useEffect(() => {
-    return () => {
-      if (raiseTimer.current) clearTimeout(raiseTimer.current);
-      if (zTimer.current) clearTimeout(zTimer.current);
-    };
   }, []);
 
   return (
@@ -201,10 +170,18 @@ export function PolaroidStack() {
         </p>
       </div>
 
+      {/* Pantry card — z-10, lives behind photo card (z-20) */}
       <div
-        className={`absolute right-[6.5rem] top-[-1rem] duration-[260ms] will-change-transform transition-transform [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)] ${
-  pantryOnTop ? "z-30" : "z-10"
-} ${pantryRaised ? "-translate-y-6" : "translate-y-6"}`}
+        className="absolute right-[6.5rem] top-[-1rem] z-10 will-change-transform"
+        style={{
+          transform: hovered
+            ? "translateX(-105%) rotate(-12deg)"
+            : "translateX(-85%) rotate(-8deg)",
+          opacity: hovered ? 1 : 0,
+          transition: hovered
+            ? "all 400ms cubic-bezier(0.34, 1.56, 0.64, 1) 80ms"
+            : "all 300ms cubic-bezier(0.4, 0, 1, 1) 0ms",
+        }}
       >
         <PolaroidPantry
           hovered={hovered}
@@ -213,6 +190,7 @@ export function PolaroidStack() {
         />
       </div>
 
+      {/* Photo card — z-20, sits on top so pantry slides out from underneath */}
       <div className="absolute left-0 top-0 z-20">
         <PolaroidPhotos hovered={hovered} />
       </div>
