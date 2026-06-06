@@ -29,7 +29,7 @@ function PolaroidPhotos({ hovered }: { hovered: boolean }) {
 
         {/* Slot 1 — plain img, no next/image needed for local files */}
         <div
-          className={`aspect-[4/5] w-full overflow-hidden transition-[filter] duration-300 ease-out ${
+          className={`aspect-[4/5] w-full overflow-hidden transition-[filter] duration-100 ease-out ${
             hovered ? "grayscale-0" : "grayscale"
           }`}
         >
@@ -42,7 +42,7 @@ function PolaroidPhotos({ hovered }: { hovered: boolean }) {
 
         {/* Slot 2 */}
         <div
-          className={`aspect-[4/5] w-full overflow-hidden transition-[filter] duration-300 ease-out ${
+          className={`aspect-[4/5] w-full overflow-hidden transition-[filter] duration-100 ease-out ${
             hovered ? "grayscale-0" : "grayscale"
           }`}
         >
@@ -142,8 +142,11 @@ export function PolaroidStack() {
 
   const handleEnter = () => {
     setHovered(true);
-    setPantryRaised(true);
-    zTimer.current = setTimeout(() => setPantryOnTop(true), 200);
+    // photos go colourful immediately — pantry waits 380ms so photos get a moment
+    raiseTimer.current = setTimeout(() => {
+      setPantryRaised(true);
+      zTimer.current = setTimeout(() => setPantryOnTop(true), 80);
+    }, 380);
   };
 
   const handleLeave = () => {
@@ -194,9 +197,9 @@ export function PolaroidStack() {
       </div>
 
       <div
-        className={`absolute right-[6.5rem] top-[-1rem] duration-[420ms] will-change-transform transition-transform [transition-timing-function:cubic-bezier(0.25,1,0.5,1)] ${
+        className={`absolute right-[6.5rem] top-[-1rem] duration-[260ms] will-change-transform transition-transform [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)] ${
   pantryOnTop ? "z-30" : "z-10"
-} ${pantryRaised ? "-translate-y-3" : "translate-y-6"}`}
+} ${pantryRaised ? "-translate-y-6" : "translate-y-6"}`}
       >
         <PolaroidPantry
           hovered={hovered}

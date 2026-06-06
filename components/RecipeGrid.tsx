@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { RecipeModal } from "@/components/RecipeModal";
 import type { Recipe } from "@/lib/types";
 
@@ -27,13 +27,13 @@ function RecipeCard({
 }: {
   recipe: Recipe;
   index: number;
-  onClick: (e: React.MouseEvent) => void;
+  onClick: () => void;
 }) {
   const [clicking, setClicking] = useState(false);
 
-  function handleClick(e: React.MouseEvent) {
+  function handleClick() {
     setClicking(true);
-    onClick(e);
+    onClick();
     setTimeout(() => setClicking(false), 400);
   }
 
@@ -41,9 +41,8 @@ function RecipeCard({
     <article className="relative group/card w-full sm:w-52">
       <button
         type="button"
-        onClick={(e) => handleClick(e)}
-        className="group text-recipe-navy w-full"
-        style={{ cursor: "inherit" }}
+        onClick={handleClick}
+        className="group cursor-pointer text-recipe-navy w-full"
         aria-label={`Open ${recipe.title}`}
       >
         {/* ── Mobile: horizontal row ── */}
@@ -169,30 +168,10 @@ function RecipeCard({
   );
 }
 
-type Particle = { id: number; x: number; y: number; dx: number; sz: number; dur: number };
-
 export function RecipeGrid({ initialRecipes }: { initialRecipes: Recipe[] }) {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
-  const [particles, setParticles] = useState<Particle[]>([]);
-  const nextId = useRef(0);
-
-  function spawnSalt(e: React.MouseEvent) {
-    const grains: Particle[] = Array.from({ length: 22 }, () => ({
-      id: nextId.current++,
-      x: e.clientX + (Math.random() - 0.5) * 24,
-      y: e.clientY + (Math.random() - 0.5) * 12,
-      dx: (Math.random() - 0.5) * 60,
-      sz: 2 + Math.random() * 4,
-      dur: 0.55 + Math.random() * 0.4,
-    }));
-    setParticles((p) => [...p, ...grains]);
-    setTimeout(() => {
-      const ids = new Set(grains.map((g) => g.id));
-      setParticles((p) => p.filter((g) => !ids.has(g.id)));
-    }, 750);
-  }
 
   const recipes = useMemo(() => {
     let list = initialRecipes;
@@ -207,19 +186,7 @@ export function RecipeGrid({ initialRecipes }: { initialRecipes: Recipe[] }) {
   }, [initialRecipes, query, activeCategory]);
 
   return (
-    <section
-      className="mt-16 md:mt-20"
-      aria-label="Recipes"
-      style={{ cursor: "url('/salt-cursor.svg') 8 0, auto" }}
-    >
-      {/* Salt grain particles */}
-      {particles.map((p) => (
-        <span
-          key={p.id}
-          className="salt-particle"
-          style={{ left: p.x, top: p.y, "--dx": `${p.dx}px`, "--sz": `${p.sz}px`, "--dur": `${p.dur}s` } as React.CSSProperties}
-        />
-      ))}
+    <section className="mt-16 md:mt-20" aria-label="Recipes">
 
       {/* Search + filter */}
       <div className="mb-12 flex flex-wrap items-center gap-3">
@@ -261,7 +228,7 @@ export function RecipeGrid({ initialRecipes }: { initialRecipes: Recipe[] }) {
                 key={recipe.id}
                 recipe={recipe}
                 index={i}
-                onClick={(e) => { spawnSalt(e); setSelectedRecipe(recipe); }}
+                onClick={() => setSelectedRecipe(recipe)}
               />
             ))}
             <WhyBlock />
