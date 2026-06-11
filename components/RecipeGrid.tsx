@@ -8,7 +8,7 @@ import type { Recipe } from "@/lib/types";
 function WhyBlock() {
   return (
     <div className="relative w-fit max-w-[14rem] rotate-[1deg] mt-6 ml-4">
-      <h3 className="font-barrio text-3xl uppercase text-recipe-navy leading-none mb-2">
+      <h3 className="font-syne text-3xl uppercase text-recipe-navy leading-none mb-2">
         Why?
       </h3>
       <p className="text-xs leading-relaxed text-recipe-navy/70">
@@ -72,7 +72,7 @@ function RecipeCard({
           {/* Right: text */}
           <div className="flex-1 flex flex-col gap-1.5 text-left min-w-0 pt-1">
             <div className="flex items-start justify-between gap-2">
-              <p className="font-barrio text-lg uppercase leading-snug text-recipe-navy">
+              <p className="font-syne text-lg uppercase leading-snug text-recipe-navy">
                 <span style={{ color: "#E03A2F" }}>★ </span>
                 {recipe.title}
               </p>
@@ -135,7 +135,7 @@ function RecipeCard({
 
           <div className="mt-3 w-52">
             <div className="flex items-start justify-between gap-2">
-              <p className="font-barrio text-base uppercase leading-snug text-recipe-navy">
+              <p className="font-syne text-base uppercase leading-snug text-recipe-navy">
                 <span style={{ color: "#E03A2F" }}>★ </span>
                 {recipe.title}
               </p>
@@ -218,7 +218,7 @@ export function RecipeGrid({ initialRecipes }: { initialRecipes: Recipe[] }) {
       </div>
 
       {recipes.length === 0 && (
-        <p className="font-barrio text-2xl uppercase text-recipe-navy/30">
+        <p className="font-syne text-2xl uppercase text-recipe-navy/30">
           Nothing here yet.
         </p>
       )}

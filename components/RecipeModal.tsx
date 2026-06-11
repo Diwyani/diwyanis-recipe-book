@@ -11,7 +11,7 @@ function CloseButton({ onClose }: { onClose: () => void }) {
       onClick={onClose}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="absolute right-5 top-5 font-barrio text-3xl leading-none z-10 transition-all duration-200"
+      className="absolute right-5 top-5 font-syne text-3xl leading-none z-10 transition-all duration-200"
       style={{
         color: hovered ? "#281A7C" : "rgba(255,248,236,0.5)",
         backgroundColor: hovered ? "#FFF8EC" : "transparent",
@@ -114,7 +114,7 @@ export function RecipeModal({
             {/* Category stamp */}
             {recipe.category && (
               <span
-                className="inline-block -rotate-[1.5deg] mb-3 rounded-full px-3 py-0.5 font-barrio text-xs uppercase tracking-widest"
+                className="inline-block -rotate-[1.5deg] mb-3 rounded-full px-3 py-0.5 font-syne text-xs uppercase tracking-widest"
                 style={{
                   border: "2px solid rgba(255,248,236,0.3)",
                   color: "rgba(255,248,236,0.5)",
@@ -126,7 +126,7 @@ export function RecipeModal({
 
             {/* Big title */}
             <h2
-              className="font-barrio text-5xl sm:text-7xl uppercase leading-none mb-5"
+              className="font-syne text-5xl sm:text-7xl uppercase leading-none mb-5"
               style={{ color: "#FFF8EC" }}
             >
               {recipe.title}
@@ -153,7 +153,7 @@ export function RecipeModal({
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <span
-                        className="font-barrio text-lg uppercase"
+                        className="font-syne text-lg uppercase"
                         style={{ color: "rgba(255,248,236,0.4)" }}
                       >
                         Photo soon
@@ -207,7 +207,7 @@ export function RecipeModal({
                 {recipe.ingredients && recipe.ingredients.length > 0 && (
                   <div className="mb-7">
                     <h3
-                      className="font-barrio text-2xl uppercase mb-4"
+                      className="font-syne text-2xl uppercase mb-4"
                       style={{ color: "#FFF8EC" }}
                     >
                       Ingredients
@@ -243,7 +243,7 @@ export function RecipeModal({
                 {recipe.instructions && (
                   <div>
                     <h3
-                      className="font-barrio text-2xl uppercase mb-3"
+                      className="font-syne text-2xl uppercase mb-3"
                       style={{ color: "#FFF8EC" }}
                     >
                       Method

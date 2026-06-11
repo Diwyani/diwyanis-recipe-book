@@ -83,7 +83,7 @@ function PolaroidPantry({
 
       <div className={`flex flex-col ${slotGap}`}>
         <section className="flex aspect-[4/5] w-full flex-col bg-recipe-navy px-3 py-2.5 text-white">
-          <h2 className="font-barrio text-lg uppercase leading-none">Restock!</h2>
+          <h2 className="font-syne text-lg uppercase leading-none">Restock!</h2>
           <ul className="mt-2 space-y-0.5 text-[0.7rem] leading-snug">
             {restockItems.map((item) => (
               <li key={item.id} className="flex items-baseline gap-1.5">
@@ -100,7 +100,7 @@ function PolaroidPantry({
         </section>
 
         <section className="flex aspect-[4/5] w-full flex-col bg-recipe-navy px-3 py-2.5 text-white">
-          <h2 className="font-barrio text-lg uppercase leading-none">Left overs</h2>
+          <h2 className="font-syne text-lg uppercase leading-none">Left overs</h2>
           <ul className="mt-2 space-y-0.5 text-[0.7rem] leading-snug">
             {leftoverItems.map((item) => (
               <li key={item.id} className="flex items-baseline gap-1.5">
@@ -178,7 +178,7 @@ export function PolaroidStack() {
     >
       {/* Joy of Hosting label + arrow */}
       <div className="absolute bottom-[8.5rem] left-[-8.5rem] z-40 flex flex-col items-center gap-1">
-        <p className="font-barrio text-sm uppercase text-recipe-navy -rotate-[6deg] whitespace-nowrap">
+        <p className="font-syne text-sm uppercase text-recipe-navy -rotate-[6deg] whitespace-nowrap">
           Joy of Hosting
         </p>
         <svg width="56" height="48" viewBox="0 0 56 48" fill="none" className="rotate-[10deg]">
@@ -193,7 +193,7 @@ export function PolaroidStack() {
           <path d="M38 6 C30 16, 16 24, 4 30" stroke="#281A7C" strokeWidth="2" strokeLinecap="round" fill="none" />
           <path d="M8 24 L4 30 L10 31" stroke="#281A7C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
         </svg>
-        <p className="font-barrio text-sm uppercase text-recipe-navy rotate-[4deg] whitespace-nowrap">
+        <p className="font-syne text-sm uppercase text-recipe-navy rotate-[4deg] whitespace-nowrap">
           Still Warm
         </p>
       </div>

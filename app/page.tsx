@@ -1,6 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 import { PolaroidStack } from "@/components/PolaroidStack";
 import { RecipeGrid } from "@/components/RecipeGrid";
+import { SubstackSection } from "@/components/SubstackSection";
+import { fetchSubstackPosts } from "@/lib/substack";
 import type { Recipe } from "@/lib/types";
 
 async function fetchRecipes(): Promise<Recipe[]> {
@@ -19,7 +21,10 @@ async function fetchRecipes(): Promise<Recipe[]> {
 }
 
 export default async function Home() {
-  const recipes = await fetchRecipes();
+  const [recipes, substackPosts] = await Promise.all([
+    fetchRecipes(),
+    fetchSubstackPosts(),
+  ]);
 
   return (
     <main className="min-h-screen overflow-x-clip bg-recipe-yellow px-8 py-12 text-recipe-navy md:px-16 md:py-16 lg:px-24 lg:py-20">
@@ -44,6 +49,8 @@ ourselves and the people we love. This is where I keep mine.
         </header>
 
         <RecipeGrid initialRecipes={recipes} />
+
+        <SubstackSection posts={substackPosts} />
       </div>
     </main>
   );
