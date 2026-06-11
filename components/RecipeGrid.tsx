@@ -72,7 +72,7 @@ function RecipeCard({
           {/* Right: text */}
           <div className="flex-1 flex flex-col gap-1.5 text-left min-w-0 pt-1">
             <div className="flex items-start justify-between gap-2">
-              <p className="font-syne text-lg uppercase leading-snug text-recipe-navy">
+              <p className="flex-1 text-left font-syne text-lg uppercase leading-snug text-recipe-navy">
                 <span style={{ color: "#E03A2F" }}>★ </span>
                 {recipe.title}
               </p>
@@ -135,7 +135,7 @@ function RecipeCard({
 
           <div className="mt-3 w-52">
             <div className="flex items-start justify-between gap-2">
-              <p className="font-syne text-base uppercase leading-snug text-recipe-navy">
+              <p className="flex-1 text-left font-syne text-base uppercase leading-snug text-recipe-navy">
                 <span style={{ color: "#E03A2F" }}>★ </span>
                 {recipe.title}
               </p>

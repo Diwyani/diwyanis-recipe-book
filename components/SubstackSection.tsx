@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { SubstackPost } from "@/lib/substack";
+import { PINNED_SECOND_POST_LINK, type SubstackPost } from "@/lib/substack";
 
 const SOCIAL_LINKS = [
   { label: "Substack", href: "https://diwyanivajpayee.substack.com" },
@@ -53,30 +53,34 @@ export function SubstackSection({ posts }: { posts: SubstackPost[] }) {
                 className="group block"
               >
                 {post.image && (
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    width={400}
-                    height={240}
-                    className="h-40 w-full rounded-[1.5rem] object-cover shadow-[0_8px_20px_rgba(0,0,0,0.12)]"
-                  />
+                  <div className="h-40 w-full overflow-hidden rounded-[1.5rem] shadow-[0_8px_20px_rgba(0,0,0,0.12)]">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      width={400}
+                      height={240}
+                      className={`h-full w-full object-cover ${
+                        post.link === PINNED_SECOND_POST_LINK ? "scale-150 object-center" : ""
+                      }`}
+                    />
+                  </div>
                 )}
-                <div className="mt-3 flex items-start justify-between gap-2">
-                  <div>
-                    <p className="font-syne text-base font-medium uppercase leading-snug text-recipe-navy">
+                <div className="mt-3 text-left">
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="flex-1 text-left font-syne text-base font-medium uppercase leading-snug text-recipe-navy">
                       {post.title}
                     </p>
-                    {post.subtitle && (
-                      <p className="mt-1 text-sm text-recipe-navy/60">
-                        {post.subtitle}
-                      </p>
-                    )}
+                    <img
+                      src="/Arrow.svg"
+                      alt="read on Substack"
+                      className="mt-1 w-7 h-7 shrink-0 transition-transform duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:scale-110"
+                    />
                   </div>
-                  <img
-                    src="/Arrow.svg"
-                    alt="read on Substack"
-                    className="mt-1 w-7 h-7 shrink-0 transition-transform duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:scale-110"
-                  />
+                  {post.subtitle && (
+                    <p className="mt-1 text-sm text-recipe-navy/60">
+                      {post.subtitle}
+                    </p>
+                  )}
                 </div>
               </a>
             ))}

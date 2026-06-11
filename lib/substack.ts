@@ -7,7 +7,7 @@ export type SubstackPost = {
 
 const FEED_URL = "https://diwyanivajpayee.substack.com/feed";
 
-const PINNED_SECOND_POST_LINK =
+export const PINNED_SECOND_POST_LINK =
   "https://diwyanivajpayee.substack.com/p/the-murder-mystery-that-taught-me";
 
 function decodeEntities(text: string): string {
