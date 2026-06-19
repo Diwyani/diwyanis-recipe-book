@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { PINNED_SECOND_POST_LINK, type SubstackPost } from "@/lib/substack";
 
 const SOCIAL_LINKS = [
@@ -112,6 +113,22 @@ export function SubstackSection({ posts }: { posts: SubstackPost[] }) {
             .
           </p>
         </div>
+
+        {/* Dev preview buttons — remove before launch
+        <div className="mt-10 flex gap-3 flex-wrap">
+          <Link
+            href="/loading-preview"
+            className="rounded-full border border-recipe-navy/30 px-4 py-1.5 font-syne text-xs uppercase tracking-wide text-recipe-navy/50 hover:border-recipe-navy hover:text-recipe-navy transition-colors"
+          >
+            Preview loading
+          </Link>
+          <Link
+            href="/this-page-does-not-exist"
+            className="rounded-full border border-recipe-navy/30 px-4 py-1.5 font-syne text-xs uppercase tracking-wide text-recipe-navy/50 hover:border-recipe-navy hover:text-recipe-navy transition-colors"
+          >
+            Preview 404
+          </Link>
+        </div>  */}
       </div>
     </section>
   );

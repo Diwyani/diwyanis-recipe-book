@@ -207,7 +207,7 @@ export function RecipeModal({
                     )}
                   </div>
 
-                  <div className="flex flex-wrap gap-2 mt-4">
+                  <div className="hidden sm:flex flex-wrap gap-2 mt-4">
                     {recipe.time_minutes && (
                       <span
                         className="rounded-full px-3 py-1 text-xs font-medium uppercase tracking-wide"

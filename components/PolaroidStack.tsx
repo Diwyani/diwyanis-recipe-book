@@ -170,14 +170,14 @@ export function PolaroidStack() {
 
   return (
     <div
-      className="relative h-[26rem] w-[14rem] shrink-0 overflow-visible sm:h-[27rem] sm:w-[15.5rem] hidden md:block"
+      className="relative h-[26rem] w-[14rem] shrink-0 overflow-visible sm:h-[27rem] sm:w-[15.5rem] hidden md:block -ml-28"
       role="group"
       aria-label="Polaroid photos and pantry list"
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
     >
       {/* Joy of Hosting label + arrow */}
-      <div className="absolute bottom-[8.5rem] left-[-9.5rem] z-40 flex flex-col items-center gap-1">
+      <div className="absolute bottom-[8.5rem] left-[-12rem] z-40 flex flex-col items-center gap-1">
         <p className="font-syne text-sm uppercase text-recipe-navy -rotate-[6deg] whitespace-nowrap">
           Joy of Hosting
         </p>
@@ -201,7 +201,9 @@ export function PolaroidStack() {
       <div
         className={`absolute right-[6.5rem] top-[-1rem] duration-[420ms] will-change-transform transition-transform [transition-timing-function:cubic-bezier(0.25,0.1,0.25,1)] ${
           pantryOnTop ? "z-30" : "z-10"
-        } ${pantryRaised ? "-translate-y-6" : "translate-y-6"}`}
+        } ${pantryRaised ? "-translate-y-6" : "translate-y-6"} ${
+          !hovered ? "pantry-hint" : ""
+        }`}
       >
         <PolaroidPantry
           hovered={hovered}

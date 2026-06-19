@@ -56,6 +56,19 @@ body {
 .clip-blob-4 { clip-path: ellipse(46% 44% at 48% 52%); }
 .clip-blob-5 { clip-path: ellipse(52% 46% at 50% 50%); }
 
+/* Pantry card idle hint — gentle bob to signal hover interaction */
+@keyframes pantry-hint {
+  0%   { transform: translateY(6px); }
+  40%  { transform: translateY(2px) rotate(-0.8deg); }
+  70%  { transform: translateY(4px) rotate(0.4deg); }
+  100% { transform: translateY(6px); }
+}
+
+.pantry-hint {
+  animation: pantry-hint 2.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation-delay: 1.4s;
+}
+
 /* CSS grain texture — no image needed */
 .paper-grain::after {
   content: "";

@@ -1,30 +1,39 @@
 import { createClient } from "@supabase/supabase-js";
+import { unstable_cache } from "next/cache";
 import { PolaroidStack } from "@/components/PolaroidStack";
 import { RecipeGrid } from "@/components/RecipeGrid";
 import { SubstackSection } from "@/components/SubstackSection";
 import { fetchSubstackPosts } from "@/lib/substack";
 import type { Recipe } from "@/lib/types";
 
-async function fetchRecipes(): Promise<Recipe[]> {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
-   const { data, error } = await supabase
-    .from("recipes")
-    .select("id, title, slug, image_url, category, time_minutes, cost_inr, calories, ingredients, instructions")
-    .order("display_order", { ascending: true });
-  if (error) {
-    console.error("Failed to fetch recipes:", error.message);
-    return [];
-  }
-  return (data ?? []) as Recipe[];
-}
+const fetchRecipes = unstable_cache(
+  async (): Promise<Recipe[]> => {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+    const { data, error } = await supabase
+      .from("recipes")
+      .select("id, title, slug, image_url, category, time_minutes, cost_inr, calories, ingredients, instructions")
+      .order("display_order", { ascending: true });
+    if (error) {
+      console.error("Failed to fetch recipes:", error.message);
+      return [];
+    }
+    return (data ?? []) as Recipe[];
+  },
+  ["recipes"],
+  { revalidate: 3600 }
+);
+
+// REMOVE BEFORE LAUNCH — keeps loading screen visible for 1.5 loops (4.5s)
+const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export default async function Home() {
   const [recipes, substackPosts] = await Promise.all([
     fetchRecipes(),
     fetchSubstackPosts(),
+    delay(4500),
   ]);
 
   return (
@@ -44,7 +53,7 @@ ourselves and the people we love. This is where I keep mine.
             </p>
           </div>
 
-          <div className="flex justify-center overflow-visible md:justify-end md:pt-2">
+          <div className="flex justify-center overflow-visible md:justify-start md:pt-2">
             <PolaroidStack />
           </div>
         </header>
