@@ -81,20 +81,11 @@ export function RecipeModal({
         style={{ backgroundColor: "rgba(40,26,124,0.5)", cursor: "default" }}
         onClick={onClose}
       >
-        {/*
-          Outer wrapper — no filter, just positions the card.
-          The torn effect is applied ONLY to the background layer div below,
-          so content stays crisp and readable.
-        */}
         <div
           className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modalIn"
           onClick={(e) => e.stopPropagation()}
         >
-          {/*
-            Background layer — torn edge filter applied HERE ONLY.
-            This is a purely decorative layer, no content inside.
-            pointer-events-none so it doesn't block clicks.
-          */}
+          {/* Background layer — torn edge filter applied HERE ONLY */}
           <div
             className="absolute inset-0 paper-grain"
             style={{
@@ -105,10 +96,9 @@ export function RecipeModal({
             }}
           />
 
-          {/* Content layer — sits on top of background, no filter applied */}
+          {/* Content layer */}
           <div className="relative p-7 sm:p-9" style={{ zIndex: 1 }}>
 
-            {/* Close button */}
             <CloseButton onClose={onClose} />
 
             {/* Category stamp */}
@@ -124,13 +114,61 @@ export function RecipeModal({
               </span>
             )}
 
-            {/* Big title */}
-            <h2
-              className="font-syne text-5xl sm:text-7xl uppercase leading-none mb-5"
-              style={{ color: "#FFF8EC" }}
-            >
-              {recipe.title}
-            </h2>
+            {/* 
+              TOP ROW — Title (left) + Ingredients (right)
+              Title shrinks based on length so layout stays compact.
+              Stacks vertically on mobile, side by side on desktop.
+            */}
+            <div className="flex flex-col sm:flex-row sm:gap-8 mb-6">
+
+              {/* Title — left side, roughly 55% width on desktop */}
+              <div className="sm:w-[55%]">
+                <h2
+                  className="font-syne uppercase leading-none"
+                  style={{
+                    color: "#FFF8EC",
+                    fontSize:
+                      recipe.title.length > 20
+                        ? "clamp(1.75rem, 5vw, 3rem)"
+                        : "clamp(2.5rem, 7vw, 4.5rem)",
+                  }}
+                >
+                  {recipe.title}
+                </h2>
+              </div>
+
+              {/* Ingredients — right side, roughly 45% width on desktop */}
+              {recipe.ingredients && recipe.ingredients.length > 0 && (
+                <div className="sm:w-[45%] mt-5 sm:mt-0">
+                  <h3
+                    className="font-syne text-lg uppercase mb-2"
+                    style={{ color: "rgba(255,248,236,0.7)" }}
+                  >
+                    Ingredients
+                  </h3>
+                  <ul className="space-y-1.5">
+                    {recipe.ingredients.map((item, i) => (
+                      <li key={i} className="flex items-center gap-2.5">
+                         <span style={{ color: "#E03A2F" }} className="text-xs">★</span>
+                        {item.image && (
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-8 h-8 rounded-full object-cover shrink-0"
+                          />
+                        )}
+                        <p
+                          className="text-xs leading-snug"
+                          style={{ color: "rgba(255,248,236,0.75)" }}
+                        >
+                          {item.name}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
 
             {/* Dashed divider */}
             <div
@@ -138,7 +176,10 @@ export function RecipeModal({
               style={{ borderColor: "rgba(255,248,236,0.2)" }}
             />
 
-            {/* Two column layout */}
+            {/* 
+              BOTTOM ROW — Photo (left) + Method (right)
+              Method gets more visual weight since it's the main content now.
+            */}
             <div className="flex flex-col sm:flex-row gap-8">
 
               {/* Left — photo + meta */}
@@ -167,10 +208,7 @@ export function RecipeModal({
                   {recipe.time_minutes && (
                     <span
                       className="rounded-full px-3 py-1 text-xs font-medium uppercase tracking-wide"
-                      style={{
-                        border: "2px solid #FFF8EC",
-                        color: "#FFF8EC",
-                      }}
+                      style={{ border: "2px solid #FFF8EC", color: "#FFF8EC" }}
                     >
                       ⏱ {recipe.time_minutes} mins
                     </span>
@@ -178,10 +216,7 @@ export function RecipeModal({
                   {recipe.cost_inr && (
                     <span
                       className="rounded-full px-3 py-1 text-xs font-medium uppercase tracking-wide"
-                      style={{
-                        border: "2px solid #FFF8EC",
-                        color: "#FFF8EC",
-                      }}
+                      style={{ border: "2px solid #FFF8EC", color: "#FFF8EC" }}
                     >
                       ₹{recipe.cost_inr}
                     </span>
@@ -189,10 +224,7 @@ export function RecipeModal({
                   {recipe.calories && (
                     <span
                       className="rounded-full px-3 py-1 text-xs font-medium uppercase tracking-wide"
-                      style={{
-                        border: "2px solid #FFF8EC",
-                        color: "#FFF8EC",
-                      }}
+                      style={{ border: "2px solid #FFF8EC", color: "#FFF8EC" }}
                     >
                       {recipe.calories} cal
                     </span>
@@ -200,46 +232,8 @@ export function RecipeModal({
                 </div>
               </div>
 
-              {/* Right — ingredients + method */}
+              {/* Right — Method, now the main focus of this row */}
               <div className="sm:w-1/2">
-
-                {/* Ingredients */}
-                {recipe.ingredients && recipe.ingredients.length > 0 && (
-                  <div className="mb-7">
-                    <h3
-                      className="font-syne text-2xl uppercase mb-4"
-                      style={{ color: "#FFF8EC" }}
-                    >
-                      Ingredients
-                    </h3>
-                    <div className="grid grid-cols-3 gap-4">
-                      {recipe.ingredients.map((item, i) => (
-                        <div key={i} className="flex flex-col items-center gap-2">
-                          {item.image ? (
-                            <img
-                              src={item.image}
-                              alt={item.name}
-                              className="w-16 h-16 rounded-full object-cover"
-                            />
-                          ) : (
-                            <div
-                              className="w-16 h-16 rounded-full"
-                              style={{ backgroundColor: "rgba(255,248,236,0.15)" }}
-                            />
-                          )}
-                          <p
-                            className="text-xs text-center leading-snug"
-                            style={{ color: "rgba(255,248,236,0.8)" }}
-                          >
-                            {item.name}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Method */}
                 {recipe.instructions && (
                   <div>
                     <h3
@@ -256,7 +250,6 @@ export function RecipeModal({
                     </p>
                   </div>
                 )}
-
               </div>
             </div>
 
@@ -268,4 +261,3 @@ export function RecipeModal({
     document.body
   );
 }
-
