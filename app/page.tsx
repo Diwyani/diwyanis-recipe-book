@@ -10,9 +10,10 @@ async function fetchRecipes(): Promise<Recipe[]> {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
-  const { data, error } = await supabase
+   const { data, error } = await supabase
     .from("recipes")
-    .select("id, title, slug, image_url, category, time_minutes, cost_inr, calories, ingredients, instructions");
+    .select("id, title, slug, image_url, category, time_minutes, cost_inr, calories, ingredients, instructions")
+    .order("display_order", { ascending: true });
   if (error) {
     console.error("Failed to fetch recipes:", error.message);
     return [];
