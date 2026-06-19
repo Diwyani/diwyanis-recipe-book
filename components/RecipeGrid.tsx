@@ -225,7 +225,7 @@ export function RecipeGrid({ initialRecipes }: { initialRecipes: Recipe[] }) {
 
       {recipes.length > 0 && (
         <div className="relative">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4 sm:gap-y-6 md:gap-x-12 items-start sm:justify-items-center lg:justify-items-start">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4 sm:gap-y-6 md:gap-x-12 items-start sm:justify-items-center">
             {recipes.map((recipe, i) => (
               <RecipeCard
                 key={recipe.id}
