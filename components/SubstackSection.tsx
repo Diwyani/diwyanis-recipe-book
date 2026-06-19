@@ -3,8 +3,9 @@ import { PINNED_SECOND_POST_LINK, type SubstackPost } from "@/lib/substack";
 
 const SOCIAL_LINKS = [
   { label: "Substack", href: "https://diwyanivajpayee.substack.com" },
-  { label: "Instagram", href: "#" },
-  { label: "Email", href: "#" },
+  { label: "Instagram", href: "https://www.instagram.com/diwyani.vajpayee/" },
+  { label: "YouTube", href: "https://www.youtube.com/@diwyani.vajpayee" },
+  { label: "Email", href: "mailto:diwyani.vajpayee@gmail.com" },
 ];
 
 export function SubstackSection({ posts }: { posts: SubstackPost[] }) {
@@ -14,7 +15,7 @@ export function SubstackSection({ posts }: { posts: SubstackPost[] }) {
       <div className="flex flex-row items-center gap-4 md:flex-col md:items-start">
         <div className="h-16 w-16 shrink-0 rounded-full bg-recipe-navy/10 overflow-hidden">
           <Image
-            src="/polaroid-photo-1.webp"
+            src="/profile.png"
             alt="Diwyani"
             width={64}
             height={64}
@@ -101,7 +102,7 @@ export function SubstackSection({ posts }: { posts: SubstackPost[] }) {
             </a>{" "}
             and follow along on{" "}
             <a
-              href="#"
+              href="https://www.instagram.com/diwyani.vajpayee/"
               target="_blank"
               rel="noreferrer"
               className="text-recipe-navy underline underline-offset-4 hover:no-underline"

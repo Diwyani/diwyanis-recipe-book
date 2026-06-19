@@ -177,7 +177,7 @@ export function PolaroidStack() {
       onMouseLeave={handleLeave}
     >
       {/* Joy of Hosting label + arrow */}
-      <div className="absolute bottom-[8.5rem] left-[-8.5rem] z-40 flex flex-col items-center gap-1">
+      <div className="absolute bottom-[8.5rem] left-[-9.5rem] z-40 flex flex-col items-center gap-1">
         <p className="font-syne text-sm uppercase text-recipe-navy -rotate-[6deg] whitespace-nowrap">
           Joy of Hosting
         </p>
@@ -188,7 +188,7 @@ export function PolaroidStack() {
       </div>
 
       {/* Still Warm label + arrow */}
-      <div className="absolute top-[21rem] right-[-1rem] z-40 flex flex-col items-center gap-1">
+      <div className="absolute top-[21rem] right-[-2rem] z-40 flex flex-col items-center gap-1">
         <svg width="44" height="40" viewBox="0 0 44 40" fill="none" className="-rotate-[5deg]">
           <path d="M38 6 C30 16, 16 24, 4 30" stroke="#281A7C" strokeWidth="2" strokeLinecap="round" fill="none" />
           <path d="M8 24 L4 30 L10 31" stroke="#281A7C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />

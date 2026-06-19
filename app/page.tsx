@@ -32,7 +32,7 @@ export default async function Home() {
       <div className="mx-auto max-w-6xl">
         <header className="grid gap-12 md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-16 lg:gap-24">
           <div className="max-w-xl space-y-6">
-            <p className="text-sm font-medium tracking-wide">Diwyani&apos;s</p>
+            <p className="text-base font-medium tracking-wide">Diwyani&apos;s</p>
             <h1 className="font-barrio text-5xl uppercase leading-[0.9] sm:text-6xl md:text-7xl lg:text-8xl" style={{ marginLeft: "-0.05em" }}>
               Recipe Book
             </h1>
