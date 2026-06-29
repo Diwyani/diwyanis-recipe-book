@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PINNED_SECOND_POST_LINK, type SubstackPost } from "@/lib/substack";
+import { PINNED_FIRST_POST_LINK, PINNED_SECOND_POST_LINK, type SubstackPost } from "@/lib/substack";
 
 const SOCIAL_LINKS = [
   { label: "Substack", href: "https://diwyanivajpayee.substack.com" },
@@ -55,7 +55,7 @@ export function SubstackSection({ posts }: { posts: SubstackPost[] }) {
                 className="group block"
               >
                 {post.image && (
-                  <div className="h-40 w-full overflow-hidden rounded-[1.5rem] shadow-[0_8px_20px_rgba(0,0,0,0.12)]">
+                  <div className="h-40 w-full overflow-hidden rounded-[1.5rem] shadow-[0_8px_20px_rgba(0,0,0,0.12)] bg-neutral-200">
                     <Image
                       src={post.image}
                       alt={post.title}
@@ -63,6 +63,8 @@ export function SubstackSection({ posts }: { posts: SubstackPost[] }) {
                       height={240}
                       className={`h-full w-full object-cover ${
                         post.link === PINNED_SECOND_POST_LINK ? "scale-150 object-center" : ""
+                      } ${
+                        post.link === PINNED_FIRST_POST_LINK ? "scale-150 object-center" : ""
                       }`}
                     />
                   </div>
@@ -89,30 +91,6 @@ export function SubstackSection({ posts }: { posts: SubstackPost[] }) {
           </div>
         )}
 
-        <div className="mt-12 max-w-md text-sm leading-7 text-recipe-navy/70">
-          <p>
-            I&apos;m Diwyani — I write about food, books, and the small things
-            that make up a life. You can find the rest of my work on{" "}
-            <a
-              href="https://diwyanivajpayee.substack.com"
-              target="_blank"
-              rel="noreferrer"
-              className="text-recipe-navy underline underline-offset-4 hover:no-underline"
-            >
-              Substack
-            </a>{" "}
-            and follow along on{" "}
-            <a
-              href="https://www.instagram.com/diwyani.vajpayee/"
-              target="_blank"
-              rel="noreferrer"
-              className="text-recipe-navy underline underline-offset-4 hover:no-underline"
-            >
-              Instagram
-            </a>
-            .
-          </p>
-        </div>
 
         {/* Dev preview buttons — remove before launch
         <div className="mt-10 flex gap-3 flex-wrap">

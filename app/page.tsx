@@ -34,7 +34,7 @@ export default async function Home() {
   const [recipes, substackPosts] = await Promise.all([
     fetchRecipes(),
     fetchSubstackPosts(),
-    delay(4500),
+    delay(3000),
   ]);
 
   return (
@@ -46,12 +46,11 @@ export default async function Home() {
             <h1 className="font-barrio text-5xl uppercase leading-[0.9] sm:text-6xl md:text-7xl lg:text-8xl" style={{ marginLeft: "-0.05em" }}>
               Recipe Book
             </h1>
-            <p className="max-w-md text-base leading-8 md:text-lg md:leading-9">
-             I've been cooking my own meals for a year now. What I've found
-            from all of it — food is beyond calories and protein. It's
-exploration, a way back to memories, warm meals made for
-ourselves and the people we love. This is where I keep mine.
-            </p>
+            <div className="max-w-md text-base leading-8 md:text-lg md:leading-9 space-y-5">
+              <p>I&apos;m Diwyani. By day I design things; lately, I cook them too.</p>
+              <p>A year ago a book made me pick up a pan for the first time — before that, there were days I&apos;d just skip eating altogether. Cooking became an act of self-love I didn&apos;t know I needed. This is my running record of what I&apos;ve learned, burnt, and gone back for seconds of.</p>
+              <p>The only real rule here: keep it light on money, light on time, and just healthy enough but colourful enough that I actually want to eat it.</p>
+            </div>
           </div>
 
           <div className="flex justify-center overflow-visible md:justify-start md:pt-2">

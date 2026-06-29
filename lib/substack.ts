@@ -7,8 +7,11 @@ export type SubstackPost = {
 
 const FEED_URL = "https://diwyanivajpayee.substack.com/feed";
 
+export const PINNED_FIRST_POST_LINK =
+  "https://open.substack.com/pub/diwyanivajpayee/p/the-murder-mystery-that-taught-me?r=1m6p07&utm_campaign=post-expanded-share&utm_medium=web";
+
 export const PINNED_SECOND_POST_LINK =
-  "https://diwyanivajpayee.substack.com/p/the-murder-mystery-that-taught-me";
+  "https://open.substack.com/pub/diwyanivajpayee/p/dinner-for-one-two-recipes?r=1m6p07&utm_campaign=post-expanded-share&utm_medium=post%20viewer";
 
 function decodeEntities(text: string): string {
   return text
@@ -46,12 +49,15 @@ export async function fetchSubstackPosts(limit = 2): Promise<SubstackPost[]> {
       };
     };
 
-    const latest = items[0] ? toPost(items[0]) : null;
-    const pinned = items
-      .map(toPost)
-      .find((post) => post.link === PINNED_SECOND_POST_LINK);
+    const allPosts = items.map(toPost);
 
-    return [latest, pinned].filter((post): post is SubstackPost => post !== null && post !== undefined).slice(0, limit);
+    const first = allPosts.find((post) => post.link.includes("the-murder-mystery-that-taught-me"));
+    if (first) first.link = PINNED_FIRST_POST_LINK;
+
+    const second = allPosts.find((post) => post.link.includes("dinner-for-one-two-recipes"));
+    if (second) second.link = PINNED_SECOND_POST_LINK;
+
+    return [first, second].filter((post): post is SubstackPost => post != null).slice(0, limit);
   } catch {
     return [];
   }

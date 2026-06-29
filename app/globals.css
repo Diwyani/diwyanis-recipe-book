@@ -6,8 +6,9 @@
   --color-recipe-navy: #281a7c;
 }
 
-body {
+html, body {
   margin: 0;
+  background-color: #FFE555;
 }
 
 /* Barrio + Syne are loaded in app/layout.tsx via next/font/google */
