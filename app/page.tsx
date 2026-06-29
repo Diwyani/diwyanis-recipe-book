@@ -5,6 +5,7 @@ import { RecipeGrid } from "@/components/RecipeGrid";
 import { SubstackSection } from "@/components/SubstackSection";
 import { fetchSubstackPosts } from "@/lib/substack";
 import type { Recipe } from "@/lib/types";
+export const dynamic = "force-dynamic";
 
 const fetchRecipes = unstable_cache(
   async (): Promise<Recipe[]> => {
