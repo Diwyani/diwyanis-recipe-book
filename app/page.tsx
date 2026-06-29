@@ -34,7 +34,7 @@ export default async function Home() {
   const [recipes, substackPosts] = await Promise.all([
     fetchRecipes(),
     fetchSubstackPosts(),
-    delay(300000),
+    delay(45000),
   ]);
 
   return (
