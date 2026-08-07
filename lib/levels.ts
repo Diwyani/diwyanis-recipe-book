@@ -11,10 +11,3 @@ export function costLevel(inr: number | null): string | null {
   if (inr <= 130) return "Medium";
   return "High";
 }
-
-export function calorieLevel(cal: number | null): string | null {
-  if (cal == null) return null;
-  if (cal <= 150) return "Low";
-  if (cal <= 350) return "Medium";
-  return "High";
-}
